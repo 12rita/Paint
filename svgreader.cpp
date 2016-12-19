@@ -1,4 +1,4 @@
-#include "svgreader.h"
+#include "svgreader.h"//уже упоминала, что загрузка не работает
 
 SvgReader::SvgReader() {}
 

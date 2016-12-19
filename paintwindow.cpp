@@ -1,5 +1,6 @@
 #include "paintwindow.h"
 #include "ui_paintwindow.h"
+//не добавлена поддержка с++11, добавляла сама
 
 PaintWindow::PaintWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -105,6 +106,11 @@ void PaintWindow::setupToolBar()
 }
 
 void PaintWindow::paint() {
+    //ввод координат не очень понятен: если вводить в определённом диапазоне,
+    //то ничего не видно, если вводить большие значения, то прямоугольник (который вообще-то просто четырёхугольник)
+    //вырождается в линию, прямоугольник смогла получить только с 3го раза,
+    //потому что в каком порядке вводить координаты точек тоже непонятно
+    //если программа создана только для построения 4хугольников, то нет защиты от введения бОльшего числа координат 
     QString str = ldtCommandLine->text();
 
     if(str.QString::startsWith("polygon", Qt::CaseInsensitive))
@@ -135,7 +141,7 @@ void PaintWindow::paint() {
         }
 }
 
-void PaintWindow::delItem()
+void PaintWindow::delItem()//слот не прописан в paitwindow.h, дописывала сама, и всё равно не работает(стоит заменить mScene на this  в connect для кнопки?)
 {
     foreach (QGraphicsItem *item, mScene->selectedItems()) {
          mScene->removeItem(item);
@@ -178,7 +184,7 @@ void PaintWindow::save()
     // По окончанию отрисовки получим векторный файл с содержимым графической сцены
 }
 
-void PaintWindow::load()
+void PaintWindow::load()//не работает
 {
     path = "/Users/Sashkaaa/Desktop/MSTU/3Sem/alg_lang/Paint/Paintings";
     //path = "../Paint/Paintings/";
